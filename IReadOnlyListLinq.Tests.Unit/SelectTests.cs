@@ -640,22 +640,6 @@ namespace IReadOnlyListLinq.Tests.Unit
         }
 
         [Fact]
-        public void Select_SourceListGetsModifiedDuringIteration_ExceptionIsPropagated()
-        {
-            List<int> source = new List<int>() { 1, 2, 3, 4, 5 };
-            Func<int, int> selector = i => i + 1;
-
-            var result = source.Select(selector);
-            var enumerator = result.GetEnumerator();
-
-            Assert.True(enumerator.MoveNext());
-            Assert.Equal(2 /* 1 + 1 */, enumerator.Current);
-
-            source.Add(6);
-            Assert.Throws<InvalidOperationException>(() => enumerator.MoveNext());
-        }
-
-        [Fact]
         public void Select_GetEnumeratorCalledTwice_DifferentInstancesReturned()
         {
             int[] source = new[] { 1, 2, 3, 4, 5 };
@@ -1048,7 +1032,7 @@ namespace IReadOnlyListLinq.Tests.Unit
         {
             yield return new object[] { Array.Empty<int>() };
             yield return new object[] { new int[1] };
-            yield return new object[] { Enumerable.Range(1, 30) };
+            yield return new object[] { Enumerable.Range(1, 30).ToList() };
         }
 
         [Theory]

@@ -7,6 +7,7 @@ namespace IReadOnlyListLinq
     {
         private abstract class Iterator<T> : IReadOnlyList<T>, IEnumerator<T>
         {
+            protected bool _enumeratorTaken;
             protected T _current;
             protected int _index = -1;
 
@@ -16,13 +17,19 @@ namespace IReadOnlyListLinq
             object IEnumerator.Current => Current;
 
             public abstract Iterator<T> Clone();
-            public IEnumerator<T> GetEnumerator() => this;
+            public IEnumerator<T> GetEnumerator()
+            {
+                var enumerator = _enumeratorTaken ? Clone() : this;
+                enumerator._enumeratorTaken = true;
+                return enumerator;
+            }
+
             public abstract bool MoveNext();
 
             public virtual void Dispose()
             {
                 _current = default;
-                _index = Count;
+                _index = -1;
             }
 
             public void Reset()

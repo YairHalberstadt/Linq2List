@@ -37,7 +37,7 @@ namespace IReadOnlyListLinq
 
             public override bool MoveNext()
             {
-                if (++_index == Count)
+                if (++_index >= Count)
                 {
                     _current = default;
                     return false;
@@ -78,7 +78,7 @@ namespace IReadOnlyListLinq
 
             public override bool MoveNext()
             {
-                if (++_index == Count)
+                if (++_index >= Count)
                 {
                     _current = default;
                     return false;
