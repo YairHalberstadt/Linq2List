@@ -18,6 +18,8 @@ One point to bear in mind, is that rather than throwing an exception, modifying 
 
 The IReadOnlyListLinq extension methods use for loop enumeration rather than foreach enumeration internally. As such, there may be some classes for which they are slower than Linq. For example, indexing an ImmutableList is O(log n) time, so for enumarating it is O(n log n) whereas foreach enumeration is O(n). In general, if getting by index is slower than call to MoveNext and Current, IReadOnlyListLinq will likely be slower than Linq.
 
+Where possible the extension methods return an IReadOnlyList. As such indexing into these results, or getting their count is usual a constant time operation.
+
 ### Current Supported Methods
 
 Select
