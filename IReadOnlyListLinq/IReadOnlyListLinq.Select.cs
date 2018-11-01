@@ -35,9 +35,12 @@ namespace IReadOnlyListLinq
             public override Iterator<TResult> Clone() =>
                 new SelectIterator<TSource, TResult>(_source, _selector);
 
+            public int _count = -1;
             public override bool MoveNext()
             {
-                if (++_index >= Count)
+                if (_count == -1)
+                    _count = Count;
+                if (++_index >= _count)
                 {
                     _current = default;
                     return false;
