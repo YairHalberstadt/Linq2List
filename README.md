@@ -23,22 +23,37 @@ Where possible the extension methods return an IReadOnlyList. As such indexing i
 ### Current Supported Methods
 
 Select
+
 Zip
 
 ### Planned Supported Methods
 
 Take
+
 Skip
+
 ElementAt
+
 ElementAtOrDefault
+
 First
+
 FirstOrDefault
+
 Last
+
 LastOrDefault
+
 Reverse
+
 Cast
+
 Any
+
 Concat
+
 DefaultIfEmpty
+
 Count
+
 LongCount
