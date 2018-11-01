@@ -58,5 +58,40 @@ namespace IReadOnlyListLinq.Tests.Unit
                 e => e.Select(i => i),
             };
         }
+
+        protected class ThrowsOnMatchReadOnlyList<T> : IReadOnlyList<T>
+        {
+            private readonly IReadOnlyList<T> _data;
+            private readonly T _thrownOn;
+
+            public ThrowsOnMatchReadOnlyList(IReadOnlyList<T> source, T thrownOn)
+            {
+                _data = source;
+                _thrownOn = thrownOn;
+            }
+
+            public T this[int index]
+            {
+                get
+                {
+                    var datum = _data[index];
+                    if (datum.Equals(_thrownOn)) throw new Exception();
+                    return datum;
+                }
+            }
+
+            public int Count => _data.Count;
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                foreach (var datum in _data)
+                {
+                    if (datum.Equals(_thrownOn)) throw new Exception();
+                    yield return datum;
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
     }
 }

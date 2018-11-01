@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -8,12 +9,12 @@ namespace IReadOnlyListLinq.Tests.Unit
 {
     public static class TestExtensions
     {
-        public static IReadOnlyList<T> RunOnce<T>(this IList<T> source)
+        public static IReadOnlyList<T> RunOnce<T>(this IReadOnlyList<T> source)
             => source == null ? null : new RunOnceList<T>(source);
 
         private class RunOnceList<T> : IReadOnlyList<T>
         {
-            private readonly IList<T> _source;
+            private readonly IReadOnlyList<T> _source;
             private readonly HashSet<int> _called = new HashSet<int>();
 
             private void AssertAll()
@@ -28,7 +29,7 @@ namespace IReadOnlyListLinq.Tests.Unit
                 Assert.True(_called.Add(index));
             }
 
-            public RunOnceList(IList<T> source)
+            public RunOnceList(IReadOnlyList<T> source)
             {
                 _source = source;
             }
@@ -57,12 +58,6 @@ namespace IReadOnlyListLinq.Tests.Unit
                 return _source.Contains(item);
             }
 
-            public void CopyTo(T[] array, int arrayIndex)
-            {
-                AssertAll();
-                _source.CopyTo(array, arrayIndex);
-            }
-
             public bool Remove(T item)
             {
                 throw new NotSupportedException();
@@ -71,12 +66,6 @@ namespace IReadOnlyListLinq.Tests.Unit
             public int Count => _source.Count;
 
             public bool IsReadOnly => true;
-
-            public int IndexOf(T item)
-            {
-                AssertAll();
-                return _source.IndexOf(item);
-            }
 
             public void Insert(int index, T item)
             {
