@@ -53,14 +53,14 @@ namespace IReadOnlyListLinq
             {
                 if (_count == -1)
                     _count = Count;
-                if(++_index >= _count)
+                if(++index >= _count)
                 {
-                    _current = default;
+                    current = default;
                     return false;
                 }
-                _current = resultSelector(first[_index], second[_index]);
+                current = resultSelector(first[index], second[index]);
                 return true;
             }
         }
-    }
+	}
 }

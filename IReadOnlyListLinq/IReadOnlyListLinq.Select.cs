@@ -40,12 +40,12 @@ namespace IReadOnlyListLinq
             {
                 if (_count == -1)
                     _count = Count;
-                if (++_index >= _count)
+                if (++index >= _count)
                 {
-                    _current = default;
+                    current = default;
                     return false;
                 }
-                _current = _selector(_source[_index]);
+                current = _selector(_source[index]);
                 return true;
             }
         }
@@ -81,12 +81,12 @@ namespace IReadOnlyListLinq
 
             public override bool MoveNext()
             {
-                if (++_index >= Count)
+                if (++index >= Count)
                 {
-                    _current = default;
+                    current = default;
                     return false;
                 }
-                _current = _selector(_source[_index], _index);
+                current = _selector(_source[index], index);
                 return true;
             }
         }

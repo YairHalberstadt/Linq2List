@@ -1007,14 +1007,14 @@ namespace IReadOnlyListLinq.Tests.Unit
         [MemberData(nameof(MoveNextAfterDisposeData))]
         public void MoveNextAfterDispose(IReadOnlyList<int> source)
         {
-            // Select is specialized for a bunch of different types, so we want
+            // Select may be specialized at some point for a bunch of different types, so we want
             // to make sure this holds true for all of them.
             var identityTransforms = new List<Func<IReadOnlyList<int>, IReadOnlyList<int>>>
             {
                 e => e,
                 e => e.ToArray(),
                 e => e.ToList(),
-                e => e.Select(i => i) // Multiple Select() chains are optimized
+                e => e.Select(i => i) // Multiple Select() chains may be optimized in the future
             };
 
             foreach (var equivalentSource in identityTransforms.Select(t => t(source)))
@@ -1041,7 +1041,7 @@ namespace IReadOnlyListLinq.Tests.Unit
         {
             int timesRun = 0;
             var selected = source.Select(i => timesRun++);
-            selected.Count();
+            selected.ToList();
 
             Assert.Equal(source.Count(), timesRun);
         }
@@ -1091,5 +1091,20 @@ namespace IReadOnlyListLinq.Tests.Unit
                 }
             }
         }
-    }
+
+		[Theory]
+		[MemberData(nameof(IteratorTestsData))]
+		public void RunIteratorTests(IReadOnlyList<int> source)
+		{
+			var iterator = source.Select(x => x);
+			new IteratorTests().RunTests(iterator);
+		}
+
+		public static IEnumerable<object[]> IteratorTestsData()
+		{
+			yield return new object[] { Array.Empty<int>() };
+			yield return new object[] { new int[1] };
+			yield return new object[] { Enumerable.Range(1, 30).ToList() };
+		}
+	}
 }

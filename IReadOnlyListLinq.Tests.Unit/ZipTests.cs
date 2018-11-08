@@ -446,5 +446,24 @@ namespace IReadOnlyListLinq.Tests.Unit
                 index++;
             }
         }
-    }
+
+		[Theory]
+		[MemberData(nameof(IteratorTestsData))]
+		public void RunIteratorTests(IReadOnlyList<int> source)
+		{
+			foreach (var list in IteratorTestsData().SelectMany(x => x).Cast<IReadOnlyList<int>>())
+			{
+				var iterator = source.Zip(list, (a,b) => (a,b));
+				new IteratorTests().RunTests(iterator);
+			}
+
+		}
+
+		public static IEnumerable<object[]> IteratorTestsData()
+		{
+			yield return new object[] { Array.Empty<int>() };
+			yield return new object[] { new int[1] };
+			yield return new object[] { Enumerable.Range(1, 30).ToList() };
+		}
+	}
 }
