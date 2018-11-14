@@ -32,11 +32,11 @@ namespace IReadOnlyListLinq
 
             public sealed override int Count => _source.Count;
 
-            public override Iterator<TResult> Clone() =>
+            public sealed override Iterator<TResult> Clone() =>
                 new SelectIterator<TSource, TResult>(_source, _selector);
 
-            public int _count = -1;
-            public override bool MoveNext()
+            private int _count = -1;
+            public sealed override bool MoveNext()
             {
                 if (_count == -1)
                     _count = Count;
@@ -79,14 +79,17 @@ namespace IReadOnlyListLinq
             public override Iterator<TResult> Clone() =>
                 new SelectIndexedIterator<TSource, TResult>(_source, _selector);
 
-            public override bool MoveNext()
+			private int _count = -1;
+			public sealed override bool MoveNext()
             {
-                if (++index >= Count)
-                {
-                    current = default;
-                    return false;
-                }
-                current = _selector(_source[index], index);
+				if (_count == -1)
+					_count = Count;
+				if (++index >= _count)
+				{
+					current = default;
+					return false;
+				}
+				current = _selector(_source[index], index);
                 return true;
             }
         }

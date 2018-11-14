@@ -25,7 +25,7 @@ namespace IReadOnlyListLinq
             return new ZipIterator<TFirst, TSecond, TResult>(first, second, resultSelector);
         }
 
-        private class ZipIterator<TFirst, TSecond, TResult> :  Iterator<TResult>
+        private sealed class ZipIterator<TFirst, TSecond, TResult> :  Iterator<TResult>
         {
             private IReadOnlyList<TFirst> first;
             private IReadOnlyList<TSecond> second;
@@ -38,18 +38,18 @@ namespace IReadOnlyListLinq
                 this.resultSelector = resultSelector;
             }
 
-            public override TResult this[int index] => resultSelector(first[index], second[index]);
+            public sealed override TResult this[int index] => resultSelector(first[index], second[index]);
 
-            public override int Count => Math.Min(first.Count, second.Count);
+            public sealed override int Count => Math.Min(first.Count, second.Count);
 
-            public int _count = -1;
+            private int _count = -1;
 
-            public override Iterator<TResult> Clone()
+            public sealed override Iterator<TResult> Clone()
             {
                 return new ZipIterator<TFirst, TSecond, TResult>(first, second, resultSelector);
             }
 
-            public override bool MoveNext()
+            public sealed override bool MoveNext()
             {
                 if (_count == -1)
                     _count = Count;

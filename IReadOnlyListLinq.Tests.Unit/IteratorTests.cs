@@ -20,8 +20,6 @@ namespace IReadOnlyListLinq.Tests.Unit
 			{
 				Assert.True(false, "An iterator should implement IList");
 			}
-
-			Assert.True(iterator is IEnumerator<TSource>, "An iterator should be an instance of an IEnumerator");
 		}
 
 		private void TestForEachMatchesIndexer<TSource>(IReadOnlyList<TSource> iterator)

@@ -10,6 +10,37 @@ namespace IReadOnlyListLinq.Tests.Unit
     {
         protected static bool IsEven(int num) => num % 2 == 0;
 
+		protected class InfiniteList<T> : IReadOnlyList<T>, IEnumerator<T>
+		{
+			public IEnumerator<T> GetEnumerator()
+			{
+				return this;
+			}
+
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				return this;
+			}
+
+			public int Count => int.MaxValue;
+
+			public T this[int index] => default;
+
+			public bool MoveNext() => true;
+
+			public void Reset()
+			{
+			}
+
+			public T Current => default;
+
+			object IEnumerator.Current => default;
+
+			public void Dispose()
+			{
+			}
+		}
+
         protected class AnagramEqualityComparer : IEqualityComparer<string>
         {
             public bool Equals(string x, string y)
