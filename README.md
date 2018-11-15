@@ -26,11 +26,11 @@ Select
 
 Zip
 
-### Planned Supported Methods
-
 Take
 
 Skip
+
+### Planned Supported Methods
 
 ElementAt
 
@@ -57,3 +57,8 @@ DefaultIfEmpty
 Count
 
 LongCount
+
+Single
+
+Append
+
