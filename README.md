@@ -34,8 +34,6 @@ ElementAt
 
 ElementAtOrDefault
 
-### Planned Supported Methods
-
 First
 
 FirstOrDefault
@@ -43,6 +41,8 @@ FirstOrDefault
 Last
 
 LastOrDefault
+
+### Planned Supported Methods
 
 Reverse
 
