@@ -30,11 +30,11 @@ Take
 
 Skip
 
-### Planned Supported Methods
-
 ElementAt
 
 ElementAtOrDefault
+
+### Planned Supported Methods
 
 First
 
@@ -63,4 +63,3 @@ Single
 Append
 
 Prepend
-
