@@ -63,3 +63,7 @@ Single
 Append
 
 Prepend
+
+Range
+
+Repeat
