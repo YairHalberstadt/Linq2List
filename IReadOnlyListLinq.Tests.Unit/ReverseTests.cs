@@ -6,8 +6,8 @@ using Xunit;
 
 namespace IReadOnlyListLinq.Tests.Unit
 {
-    public class ReverseTests : IReadOnlyListLinqTests
-    {
+	public class ReverseTests : IReadOnlyListLinqTests
+	{
 		[Fact]
 		public void InvalidArguments()
 		{
@@ -64,16 +64,31 @@ namespace IReadOnlyListLinq.Tests.Unit
 			var integers = new[]
 			{
 				Array.Empty<int>(), // No elements.
-                new[] { 1 }, // One element.
-                new[] { 9999, 0, 888, -1, 66, -777, 1, 2, -12345 }, // Distinct elements.
-                new[] { -10, 0, 5, 0, 9, 100, 9 }, // Some repeating elements.
-            };
+				new[] {1}, // One element.
+				new[] {9999, 0, 888, -1, 66, -777, 1, 2, -12345}, // Distinct elements.
+				new[] {-10, 0, 5, 0, 9, 100, 9}, // Some repeating elements.
+			};
 
 			return integers
-				.Select(collection => new object[] { collection })
+				.Select(collection => new object[] {collection})
 				.Concat(
-					integers.Select(c => new object[] { c.Select(i => i.ToString()) })
+					integers.Select(c => new object[] {c.Select(i => i.ToString())})
 				);
+		}
+
+		[Theory]
+		[MemberData(nameof(IteratorTestsData))]
+		public void RunIteratorTests(IReadOnlyList<int> source)
+		{
+			var iterator = source.Reverse();
+			new IteratorTests().RunTests(iterator);
+		}
+
+		public static IEnumerable<object[]> IteratorTestsData()
+		{
+			yield return new object[] {Array.Empty<int>()};
+			yield return new object[] {new int[1]};
+			yield return new object[] {Enumerable.Range(1, 30).ToList()};
 		}
 	}
 }

@@ -27,26 +27,26 @@ namespace IReadOnlyListLinq
 
         private sealed class ZipIterator<TFirst, TSecond, TResult> :  Iterator<TResult>
         {
-            private IReadOnlyList<TFirst> first;
-            private IReadOnlyList<TSecond> second;
-            private Func<TFirst, TSecond, TResult> resultSelector;
+            private readonly IReadOnlyList<TFirst> _first;
+            private readonly IReadOnlyList<TSecond> _second;
+            private readonly Func<TFirst, TSecond, TResult> _resultSelector;
 
             public ZipIterator(IReadOnlyList<TFirst> first, IReadOnlyList<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
             {
-                this.first = first;
-                this.second = second;
-                this.resultSelector = resultSelector;
+                this._first = first;
+                this._second = second;
+                this._resultSelector = resultSelector;
             }
 
-            public sealed override TResult this[int index] => resultSelector(first[index], second[index]);
+            public sealed override TResult this[int index] => _resultSelector(_first[index], _second[index]);
 
-            public sealed override int Count => Math.Min(first.Count, second.Count);
+            public sealed override int Count => Math.Min(_first.Count, _second.Count);
 
             private int _count = -1;
 
             public sealed override Iterator<TResult> Clone()
             {
-                return new ZipIterator<TFirst, TSecond, TResult>(first, second, resultSelector);
+                return new ZipIterator<TFirst, TSecond, TResult>(_first, _second, _resultSelector);
             }
 
             public sealed override bool MoveNext()
@@ -58,9 +58,60 @@ namespace IReadOnlyListLinq
                     current = default;
                     return false;
                 }
-                current = resultSelector(first[index], second[index]);
+                current = _resultSelector(_first[index], _second[index]);
                 return true;
             }
         }
+
+		public static IReadOnlyList<(TFirst First, TSecond Second)> Zip<TFirst, TSecond>(this IReadOnlyList<TFirst> first, IReadOnlyList<TSecond> second)
+		{
+			if (first == null)
+			{
+				throw new ArgumentNullException(nameof(first));
+			}
+
+			if (second == null)
+			{
+				throw new ArgumentNullException(nameof(second));
+			}
+
+			return new ZipIterator<TFirst, TSecond>(first, second);
+		}
+
+		private sealed class ZipIterator<TFirst, TSecond> : Iterator<(TFirst, TSecond)>
+		{
+			private readonly IReadOnlyList<TFirst> _first;
+			private readonly IReadOnlyList<TSecond> _second;
+
+			public ZipIterator(IReadOnlyList<TFirst> first, IReadOnlyList<TSecond> second)
+			{
+				this._first = first;
+				this._second = second;
+			}
+
+			public sealed override (TFirst, TSecond) this[int index] => (_first[index], _second[index]);
+
+			public sealed override int Count => Math.Min(_first.Count, _second.Count);
+
+			private int _count = -1;
+
+			public sealed override Iterator<(TFirst, TSecond)> Clone()
+			{
+				return new ZipIterator<TFirst, TSecond>(_first, _second);
+			}
+
+			public sealed override bool MoveNext()
+			{
+				if (_count == -1)
+					_count = Count;
+				if (++index >= _count)
+				{
+					current = default;
+					return false;
+				}
+				current = (_first[index], _second[index]);
+				return true;
+			}
+		}
 	}
 }
