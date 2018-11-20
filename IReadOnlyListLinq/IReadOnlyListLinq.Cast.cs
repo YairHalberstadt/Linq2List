@@ -46,7 +46,13 @@ namespace IReadOnlyListLinq
             }
         }
 
-        public static IReadOnlyList<TResult> Cast<TResult>(this IList source)
+		/// <summary>
+		/// This cannot be used for an IReadOnlyList of type T where T is a struct. Use the overload with two type arguments instead.
+		/// </summary>
+		/// <typeparam name="TResult"></typeparam>
+		/// <param name="source"></param>
+		/// <returns></returns>
+        public static IReadOnlyList<TResult> Cast<TResult>(this IReadOnlyList<object> source)
         {
             if (source is IReadOnlyList<TResult> result)
                 return result;
@@ -57,9 +63,9 @@ namespace IReadOnlyListLinq
 
         private sealed class CastIterator<TResult> : Iterator<TResult>
         {
-            private readonly IList _source;
+            private readonly IReadOnlyList<object> _source;
 
-            public CastIterator(IList source)
+            public CastIterator(IReadOnlyList<object> source)
             {
                 _source = source;
             }
