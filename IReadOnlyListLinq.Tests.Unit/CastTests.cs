@@ -215,6 +215,24 @@ namespace IReadOnlyListLinq.Tests.Unit
             Assert.Equal(3, count);
         }
 
+		[Fact]
+		public void NullableIntFromAppropriateObjectsRunOnce()
+		{
+			int? i = 10;
+			object[] source = { -4, 1, 2, 3, 9, i };
+			int?[] expected = { -4, 1, 2, 3, 9, i };
+
+			Assert.Equal(expected, source.RunOnce().Cast<object, int?>());
+		}
+
+		[Theory]
+		[MemberData(nameof(IteratorTestsData))]
+		public void RunIteratorTests(IReadOnlyList<int> source)
+		{
+			var iterator = source.Cast<int, int?>();
+			new IteratorTests().RunTests(iterator);
+		}
+
 		#endregion
 
 		#region IReadOnlyList<object> CastTests
@@ -374,7 +392,32 @@ namespace IReadOnlyListLinq.Tests.Unit
 			Assert.Equal(3, count);
 		}
 
+		[Fact]
+		public void NullableIntFromAppropriateObjectsRunOnce2()
+		{
+			int? i = 10;
+			object[] source = { -4, 1, 2, 3, 9, i };
+			int?[] expected = { -4, 1, 2, 3, 9, i };
+
+			Assert.Equal(expected, source.RunOnce().Cast<object, int?>());
+		}
+
+		[Theory]
+		[MemberData(nameof(IteratorTestsData))]
+		public void RunIteratorTests2(IReadOnlyList<int> source)
+		{
+			var iterator = source.Cast<int, object>().Cast<int?>();
+			new IteratorTests().RunTests(iterator);
+		}
+
 		#endregion
+
+		public static IEnumerable<object[]> IteratorTestsData()
+		{
+			yield return new object[] { Array.Empty<int>() };
+			yield return new object[] { new int[1] };
+			yield return new object[] { Enumerable.Range(1, 30).ToList() };
+		}
 	}
 
 }
