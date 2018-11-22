@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IReadOnlyListLinq
+namespace ListLinq
 {
-    public static partial class IReadOnlyListLinq
+    public static partial class ReadOnlyList
     {
         public static IReadOnlyList<TResult> Zip<TFirst, TSecond, TResult>(this IReadOnlyList<TFirst> first, IReadOnlyList<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
         {

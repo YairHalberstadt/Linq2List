@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace IReadOnlyListLinq
+namespace ListLinq
 {
-    public static partial class IReadOnlyListLinq
+    public static partial class ReadOnlyList
     {
         public static IReadOnlyList<TResult> Select<TSource, TResult>(this IReadOnlyList<TSource> source, Func<TSource, TResult> selector)
         {

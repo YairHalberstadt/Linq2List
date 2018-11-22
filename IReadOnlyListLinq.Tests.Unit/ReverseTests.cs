@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace IReadOnlyListLinq.Tests.Unit
+namespace ListLinq.Tests.Unit
 {
-	public class ReverseTests : IReadOnlyListLinqTests
+	public class ReverseTests : ListLinqTests
 	{
 		[Fact]
 		public void InvalidArguments()
 		{
-			AssertExtensions.Throws<ArgumentNullException>("source", () => IReadOnlyListLinq.Reverse<string>(null));
+			AssertExtensions.Throws<ArgumentNullException>("source", () => ReadOnlyList.Reverse<string>(null));
 		}
 
 		[Theory]

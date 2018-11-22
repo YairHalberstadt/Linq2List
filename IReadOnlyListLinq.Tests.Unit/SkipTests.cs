@@ -6,11 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using IReadOnlyListLinq;
 
-namespace IReadOnlyListLinq.Tests.Unit
+namespace ListLinq.Tests.Unit
 {
-	public class SkipTests : IReadOnlyListLinqTests
+	public class SkipTests : ListLinqTests
 	{
 		[Fact]
 		public void SkipSomeIList()

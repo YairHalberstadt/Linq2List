@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
-namespace IReadOnlyListLinq.Tests.Unit
+namespace ListLinq.Tests.Unit
 {
-    public class IteratorTests : IReadOnlyListLinqTests
+    public class IteratorTests : ListLinqTests
     {
 		public void RunTests<TSource>(IReadOnlyList<TSource> iterator)
 		{

@@ -2,13 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Sdk;
-using System.Linq;
 
-namespace System
+namespace ListLinq.Tests.Unit
 {
     public static class AssertExtensions
     {

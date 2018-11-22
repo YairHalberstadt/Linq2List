@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IReadOnlyListLinq
+namespace ListLinq
 {
-    public static partial class IReadOnlyListLinq
+    public static partial class ReadOnlyList
     {
 		public static TSource First<TSource>(this IReadOnlyList<TSource> source)
 		{

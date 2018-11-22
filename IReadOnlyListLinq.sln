@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IReadOnlyListLinq", "IReadOnlyListLinq\IReadOnlyListLinq.csproj", "{08A42D35-CEA8-4B8E-8C02-4483C7E45EA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListLinq", "IReadOnlyListLinq\ListLinq.csproj", "{08A42D35-CEA8-4B8E-8C02-4483C7E45EA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IReadOnlyListLinq.Tests.Unit", "IReadOnlyListLinq.Tests.Unit\IReadOnlyListLinq.Tests.Unit.csproj", "{35F40BF5-D825-41F6-AAD1-1182A1A691AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListLinq.Tests.Unit", "IReadOnlyListLinq.Tests.Unit\ListLinq.Tests.Unit.csproj", "{35F40BF5-D825-41F6-AAD1-1182A1A691AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

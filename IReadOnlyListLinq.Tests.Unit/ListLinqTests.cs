@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace IReadOnlyListLinq.Tests.Unit
+namespace ListLinq.Tests.Unit
 {
-    public abstract class IReadOnlyListLinqTests
+    public abstract class ListLinqTests
     {
         protected static bool IsEven(int num) => num % 2 == 0;
 

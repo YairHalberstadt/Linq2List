@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace IReadOnlyListLinq.Tests.Unit
+namespace ListLinq.Tests.Unit
 {
-    public class ElementAtOrDefaultTests : IReadOnlyListLinqTests
+    public class ElementAtOrDefaultTests : ListLinqTests
     {
 		[Fact]
 		public void SameResultsRepeatCallsIntQuery()

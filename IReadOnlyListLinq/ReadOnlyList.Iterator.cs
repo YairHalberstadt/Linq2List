@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace IReadOnlyListLinq
+namespace ListLinq
 {
-	public static partial class IReadOnlyListLinq
+	public static partial class ReadOnlyList
 	{
 		private abstract class Iterator<T> : IReadOnlyList<T>, IEnumerator<T>, IList<T>
 		{

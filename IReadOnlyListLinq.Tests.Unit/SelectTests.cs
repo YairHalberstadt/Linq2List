@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Xunit;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Immutable;
+using Xunit;
 
-namespace IReadOnlyListLinq.Tests.Unit
+namespace ListLinq.Tests.Unit
 {
-    public class SelectTests : IReadOnlyListLinqTests
+    public class SelectTests : ListLinqTests
     {
         [Fact]
         public void SameResultsRepeatCallsStringQuery()

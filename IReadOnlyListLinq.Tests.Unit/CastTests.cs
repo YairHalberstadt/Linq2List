@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace IReadOnlyListLinq.Tests.Unit
+namespace ListLinq.Tests.Unit
 {
-    public class CastTests : IReadOnlyListLinqTests
+    public class CastTests : ListLinqTests
     {
         #region IReadOnlyList CastTests
         [Fact]
