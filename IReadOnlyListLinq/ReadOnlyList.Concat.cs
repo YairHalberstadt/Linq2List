@@ -23,57 +23,112 @@ namespace ListLinq
 
 		private sealed class ConcatIterator<TSource> : Iterator<TSource>
 		{
-			private readonly IReadOnlyList<TSource> _first;
-			private readonly IReadOnlyList<TSource> _second;
+			private readonly IReadOnlyList<TSource>[] _sources;
 
 			public ConcatIterator(IReadOnlyList<TSource> first, IReadOnlyList<TSource> second)
 			{
-				_first = first;
-				_second = second;
+
+				if (first is ConcatIterator<TSource> concatenatedFirst)
+				{
+					if (second is ConcatIterator<TSource> concatenatedSecond)
+					{
+						_sources = new IReadOnlyList<TSource>[concatenatedFirst._sources.Length +
+															concatenatedSecond._sources.Length];
+						Array.Copy(concatenatedFirst._sources, 0, _sources, 0, concatenatedFirst._sources.Length);
+						Array.Copy(concatenatedSecond._sources, 0, _sources, concatenatedFirst._sources.Length, concatenatedSecond._sources.Length);
+					}
+					else
+					{
+						_sources = new IReadOnlyList<TSource>[concatenatedFirst._sources.Length + 1];
+						Array.Copy(concatenatedFirst._sources, 0, _sources, 0, concatenatedFirst._sources.Length);
+						_sources[_sources.Length - 1] = second;
+					}
+				}
+				else
+				{
+					if (second is ConcatIterator<TSource> concatenatedSecond)
+					{
+						_sources = new IReadOnlyList<TSource>[concatenatedSecond._sources.Length + 1];
+						_sources[0] = first;
+						Array.Copy(concatenatedSecond._sources, 0, _sources, 1, concatenatedSecond._sources.Length);
+					}
+					else
+					{
+						_sources = new []
+						{
+							first,
+							second,
+						};
+					}
+				}
+			}
+
+			public ConcatIterator(IReadOnlyList<TSource>[] sources)
+			{
+				_sources = sources;
 			}
 
 			public sealed override TSource this[int index]
 			{
 				get
 				{
-					var firstCount = _first.Count;
-					return index < firstCount ? _first[index] : _second[index - firstCount];
+					var countSum = 0;
+					foreach (var source in _sources)
+					{
+						var newCountSum = checked(source.Count + countSum);
+						if (index < newCountSum)
+							return source[index - countSum];
+						countSum = newCountSum;
+					}
+
+					throw new ArgumentOutOfRangeException(nameof(index));
 				}
 			}
 
-			public sealed override int Count => checked(_first.Count + _second.Count);
+			public sealed override int Count
+			{
+				get
+				{
+					var countSum = 0;
+					foreach (var source in _sources)
+					{
+						checked
+						{
+							countSum += source.Count;
+						}
+					}
+					return countSum;
+				}
+			}
 
 			private int _count = -1;
 
 			public sealed override Iterator<TSource> Clone()
 			{
-				return new ConcatIterator<TSource>(_first, _second);
+				return new ConcatIterator<TSource>(_sources);
 			}
 
-			private bool onSecond;
+			private int currentSourceIndex;
 			public sealed override bool MoveNext()
 			{
+				if(currentSourceIndex >= _sources.Length)
+				{
+					current = default;
+					return false;
+				}
+
 				if (_count == -1)
-					_count = _first.Count;
+					_count = _sources[currentSourceIndex].Count;
+
 				if (++index >= _count)
 				{
-					if (onSecond)
-					{
-						current = default;
-						return false;
-					}
-
-					_count = _second.Count;
-					if (_count == 0)
-					{
-						current = default;
-						return false;
-					}
-
-					index = 0;
-					onSecond = true;
+					currentSourceIndex++;
+					_count = -1;
+					index = -1;
+					return MoveNext();
 				}
-				current = onSecond ? _second[index] : _first[index];
+
+				current = _sources[currentSourceIndex][index];
 				return true;
 			}
 		}
