@@ -42,23 +42,13 @@ Last
 
 LastOrDefault
 
-### Planned Supported Methods
-
 Reverse
 
 Cast
 
-Any
-
 Concat
 
-DefaultIfEmpty
-
-Count
-
-LongCount
-
-Single
+### Planned Supported Methods
 
 Append
 
@@ -67,3 +57,15 @@ Prepend
 Range
 
 Repeat
+
+Count
+
+LongCount
+
+DefaultIfEmpty
+
+Single
+
+SingleOrDefault
+
+Any
