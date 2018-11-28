@@ -62,6 +62,8 @@ Count
 
 LongCount
 
+### Potentially Supported Methods
+
 DefaultIfEmpty
 
 Single
@@ -69,3 +71,5 @@ Single
 SingleOrDefault
 
 Any
+
+SelectMany (would not be only O(1) indexing)
