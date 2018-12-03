@@ -14,11 +14,6 @@ namespace ListLinq
 				throw new ArgumentNullException(nameof(source));
 			}
 
-			if (element == null)
-			{
-				throw new ArgumentNullException(nameof(element));
-			}
-
 			if (source is AppendPrependIterator<TSource> appendPrependIterator)
 				return appendPrependIterator.Append(element);
 
@@ -30,11 +25,6 @@ namespace ListLinq
 			if (source == null)
 			{
 				throw new ArgumentNullException(nameof(source));
-			}
-
-			if (element == null)
-			{
-				throw new ArgumentNullException(nameof(element));
 			}
 
 			if (source is AppendPrependIterator<TSource> appendPrependIterator)
