@@ -5,4 +5,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="InvalidStateException" Version="0.0.1" />
+  </ItemGroup>
+
 </Project>
