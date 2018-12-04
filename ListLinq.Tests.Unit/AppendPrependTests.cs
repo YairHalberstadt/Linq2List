@@ -211,6 +211,21 @@ namespace ListLinq.Tests.Unit
 			Assert.Equal(source, Enumerable.Range(0, 200001));
 		}
 
+		[Fact]
+		public void AppendPrependManyTwiceOnEachIterator()
+		{
+			IReadOnlyList<int> source = new[] { 9999, 10000, 10001 };
+			for (int i = 9998, j = 10002; i >= 0; i--, j++)
+			{
+				source.Prepend(i);
+				source = source.Prepend(i);
+				source.Append(j);
+				source =source.Append(j);
+			}
+
+			Assert.Equal(source, Enumerable.Range(0, 20001));
+		}
+
 		[Theory]
 		[MemberData(nameof(IteratorTestsData))]
 		public void RunIteratorTests(IReadOnlyList<int> source)

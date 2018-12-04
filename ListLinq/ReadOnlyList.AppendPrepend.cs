@@ -142,19 +142,45 @@ namespace ListLinq
 				_source = source._source;
 				if (append)
 				{
-					_appended = source._appended.Count > source._appendedCount ? source._appended.GetRange(0, source._appendedCount) : source._appended;
-					_prepended = source._prepended;
-					_prependedCount = source._prependedCount;
-					_appendedCount = source._appendedCount + 1;
-					_appended.Add(item);
+					if (source._appended.Count > source._appendedCount && source._appendedCount > source._source.Count)
+					{
+						_source = source;
+						_appended = new List<TSource>(1) { item };
+						_prepended = new List<TSource>();
+						_appendedCount = 1;
+						_prependedCount = 0;
+					}
+					else
+					{
+						_appended = source._appended.Count > source._appendedCount
+							? source._appended.GetRange(0, source._appendedCount)
+							: source._appended;
+						_prepended = source._prepended;
+						_prependedCount = source._prependedCount;
+						_appendedCount = source._appendedCount + 1;
+						_appended.Add(item);
+					}
 				}
 				else
 				{
-					_appended = source._appended;
-					_prepended = source._prepended.Count > source._prependedCount ? source._prepended.GetRange(0, source._prependedCount) : source._prepended;
-					_prependedCount = source._prependedCount + 1;
-					_appendedCount = source._appendedCount;
-					_prepended.Add(item);
+					if (source._prepended.Count > source._prependedCount && source._prependedCount > source._source.Count)
+					{
+						_source = source;
+						_appended = new List<TSource>();
+						_prepended = new List<TSource>(1) { item };
+						_appendedCount = 0;
+						_prependedCount = 1;
+					}
+					else
+					{
+						_appended = source._appended;
+						_prepended = source._prepended.Count > source._prependedCount
+							? source._prepended.GetRange(0, source._prependedCount)
+							: source._prepended;
+						_prependedCount = source._prependedCount + 1;
+						_appendedCount = source._appendedCount;
+						_prepended.Add(item);
+					}
 				}
 			}
 
@@ -174,15 +200,15 @@ namespace ListLinq
 				{
 					if (source._isAppended)
 					{
-						_appended = new List<TSource>(2) {source._item, item};
+						_appended = new List<TSource>(2) { source._item, item };
 						_prepended = new List<TSource>(0);
 						_appendedCount = 2;
 						_prependedCount = 0;
 					}
 					else
 					{
-						_appended = new List<TSource>(1) {item};
-						_prepended = new List<TSource>(1) {source._item};
+						_appended = new List<TSource>(1) { item };
+						_prepended = new List<TSource>(1) { source._item };
 						_appendedCount = 1;
 						_prependedCount = 1;
 					}
@@ -191,15 +217,15 @@ namespace ListLinq
 				{
 					if (source._isAppended)
 					{
-						_appended = new List<TSource>(1) {source._item};
-						_prepended = new List<TSource>(1) {item};
+						_appended = new List<TSource>(1) { source._item };
+						_prepended = new List<TSource>(1) { item };
 						_appendedCount = 1;
 						_prependedCount = 1;
 					}
 					else
 					{
 						_appended = new List<TSource>(0);
-						_prepended = new List<TSource>(2) {source._item, item};
+						_prepended = new List<TSource>(2) { source._item, item };
 						_appendedCount = 0;
 						_prependedCount = 2;
 					}
