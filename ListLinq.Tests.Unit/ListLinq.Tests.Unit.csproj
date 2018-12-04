@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IReadOnlyListLinq\ListLinq.csproj" />
+    <ProjectReference Include="..\ListLinq\ListLinq.csproj" />
   </ItemGroup>
 
 </Project>

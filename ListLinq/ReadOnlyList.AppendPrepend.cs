@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ListLinq
 {
@@ -117,12 +118,12 @@ namespace ListLinq
 				return true;
 			}
 
-			protected override AppendPrependIterator<TSource> Append(TSource item)
+			public override AppendPrependIterator<TSource> Append(TSource item)
 			{
 				return new AppendPrependNIterator<TSource>(this, item, true);
 			}
 
-			protected override AppendPrependIterator<TSource> Prepend(TSource item)
+			public override AppendPrependIterator<TSource> Prepend(TSource item)
 			{
 				return new AppendPrependNIterator<TSource>(this, item, false);
 			}
@@ -139,16 +140,18 @@ namespace ListLinq
 			private AppendPrependNIterator(AppendPrependNIterator<TSource> source, TSource item, bool append)
 			{
 				_source = source._source;
-				_prepended = source._prepended;
-				_appended = source._appended;
 				if (append)
 				{
+					_appended = source._appended.Count > source._appendedCount ? source._appended.GetRange(0, source._appendedCount) : source._appended;
+					_prepended = source._prepended;
 					_prependedCount = source._prependedCount;
 					_appendedCount = source._appendedCount + 1;
 					_appended.Add(item);
 				}
 				else
 				{
+					_appended = source._appended;
+					_prepended = source._prepended.Count > source._prependedCount ? source._prepended.GetRange(0, source._prependedCount) : source._prepended;
 					_prependedCount = source._prependedCount + 1;
 					_appendedCount = source._appendedCount;
 					_prepended.Add(item);
@@ -173,11 +176,15 @@ namespace ListLinq
 					{
 						_appended = new List<TSource>(2) {source._item, item};
 						_prepended = new List<TSource>(0);
+						_appendedCount = 2;
+						_prependedCount = 0;
 					}
 					else
 					{
 						_appended = new List<TSource>(1) {item};
 						_prepended = new List<TSource>(1) {source._item};
+						_appendedCount = 1;
+						_prependedCount = 1;
 					}
 				}
 				else
@@ -186,11 +193,15 @@ namespace ListLinq
 					{
 						_appended = new List<TSource>(1) {source._item};
 						_prepended = new List<TSource>(1) {item};
+						_appendedCount = 1;
+						_prependedCount = 1;
 					}
 					else
 					{
-						_appended = new List<TSource>(0) { };
-						_prepended = new List<TSource>(1) {source._item, item};
+						_appended = new List<TSource>(0);
+						_prepended = new List<TSource>(2) {source._item, item};
+						_appendedCount = 0;
+						_prependedCount = 2;
 					}
 				}
 			}
@@ -263,12 +274,12 @@ namespace ListLinq
 				}
 			}
 
-			protected sealed override AppendPrependIterator<TSource> Append(TSource item)
+			public sealed override AppendPrependIterator<TSource> Append(TSource item)
 			{
 				return new AppendPrependNIterator<TSource>(this, item, true);
 			}
 
-			protected sealed override AppendPrependIterator<TSource> Prepend(TSource item)
+			public sealed override AppendPrependIterator<TSource> Prepend(TSource item)
 			{
 				return new AppendPrependNIterator<TSource>(this, item, false);
 			}
