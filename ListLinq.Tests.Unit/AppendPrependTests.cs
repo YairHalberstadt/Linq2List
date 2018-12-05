@@ -214,8 +214,8 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void AppendPrependManyTwiceOnEachIterator()
 		{
-			IReadOnlyList<int> source = new[] { 9999, 10000, 10001 };
-			for (int i = 9998, j = 10002; i >= 0; i--, j++)
+			IReadOnlyList<int> source = new[] { 99999, 100000, 100001 };
+			for (int i = 99998, j = 100002; i >= 0; i--, j++)
 			{
 				source.Prepend(i);
 				source = source.Prepend(i);
@@ -223,7 +223,7 @@ namespace ListLinq.Tests.Unit
 				source =source.Append(j);
 			}
 
-			Assert.Equal(source, Enumerable.Range(0, 20001));
+			Assert.Equal(source, Enumerable.Range(0, 200001));
 		}
 
 		[Theory]

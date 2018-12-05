@@ -137,12 +137,34 @@ namespace ListLinq
 			private readonly int _prependedCount;
 			private readonly int _appendedCount;
 
+			/// <summary>
+			/// This method may look like a bit of magic is going on, so I'll explain it here
+			/// If we append an item to an <see cref = "AppendPrependNIterator{TSource}"/> we just add an item to the end of the <see cref = "_appended"/> list of the original iterator, and increases its personal <see cref = "_appendedCount"/> by 1.
+			/// However, if the <see cref = "AppendPrependNIterator{TSource}"/> already has an item appended to the end of its <see cref = "_appended"/> list, we cannot do that.
+			/// Instead we have a choice:
+			/// 1. We can copy the <see cref = "_appended"/> list, excluding the extra appended items.
+			/// 2. We can treat the iterator like any other list, and set it as the <see cref = "_source"/>
+			/// Both have costs.
+			/// The first has a cost proportional to the <see cref = "_appendedCount"/>.
+			/// The second increases the level of recursion when indexing into the list by one, and so when iterating through the list has a cost proportional to the total length of the existing iterator
+			/// The total cost can be minimized by taking the first option when the list is small, but the second when the list is large.
+			/// How big is small and large?
+			/// A little bit of calculus tells us that in the worst case scenario, the length that a list has to be before we copy it should be proportional to the square root of the total length of the iterator.
+			/// What is that proportion?
+			/// A little bit of preliminary testing suggests it to be around the 10 - 15 region, leaning towards 15. Hopefully I'll benchmark it more thoroughly in the future. This is the <see cref = "recursionCostMultiplier"/>
+			///
+			/// Everything above applies to prepending as well of course
+			/// </summary>
+			/// <param name="source"></param>
+			/// <param name="item"></param>
+			/// <param name="append"></param>
 			private AppendPrependNIterator(AppendPrependNIterator<TSource> source, TSource item, bool append)
 			{
+				const int recursionCostMultiplier = 15;
 				_source = source._source;
 				if (append)
 				{
-					if (source._appended.Count > source._appendedCount && source._appendedCount > source._source.Count)
+					if (source._appended.Count > source._appendedCount && source._appendedCount > Math.Sqrt(source._source.Count) * recursionCostMultiplier)
 					{
 						_source = source;
 						_appended = new List<TSource>(1) { item };
@@ -163,7 +185,7 @@ namespace ListLinq
 				}
 				else
 				{
-					if (source._prepended.Count > source._prependedCount && source._prependedCount > source._source.Count)
+					if (source._prepended.Count > source._prependedCount && source._prependedCount > Math.Sqrt(source._source.Count) * recursionCostMultiplier)
 					{
 						_source = source;
 						_appended = new List<TSource>();
