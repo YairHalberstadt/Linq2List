@@ -48,11 +48,11 @@ Cast
 
 Concat
 
-### Planned Supported Methods
-
 Append
 
 Prepend
+
+### Planned Supported Methods
 
 Range
 
