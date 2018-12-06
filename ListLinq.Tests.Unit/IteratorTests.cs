@@ -56,7 +56,8 @@ namespace ListLinq.Tests.Unit
 			for (int i = 0; i < iterator.Count; i++)
 			{
 				var elem = iterator[i];
-				Assert.Equal(i, iterator.IndexOf(elem));
+				if(i != iterator.IndexOf(elem))
+					Assert.Equal(elem, iterator[iterator.IndexOf(elem)]);
 				Assert.True(iterator.Contains(elem));
 			}
 

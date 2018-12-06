@@ -10,7 +10,7 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void SameResultsRepeatCallsIntQuery()
 		{
-			var ieInt = Enumerable.Range(0, 0).ToList();
+			var ieInt = ReadOnlyList.Range(0, 0);
 			var q = from x in ieInt
 					select x;
 
@@ -146,7 +146,7 @@ namespace ListLinq.Tests.Unit
 		public void NullPredicate()
 		{
 			Func<int, bool> predicate = null;
-			AssertExtensions.Throws<ArgumentNullException>("predicate", () => Enumerable.Range(0, 3).ToList().FirstOrDefault(predicate));
+			AssertExtensions.Throws<ArgumentNullException>("predicate", () => ReadOnlyList.Range(0, 3).FirstOrDefault(predicate));
 		}
 	}
 }

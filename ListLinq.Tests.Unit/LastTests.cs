@@ -142,7 +142,7 @@ namespace ListLinq.Tests.Unit
 		public void NullPredicate()
 		{
 			Func<int, bool> predicate = null;
-			AssertExtensions.Throws<ArgumentNullException>("predicate", () => Enumerable.Range(0, 3).ToList().Last(predicate));
+			AssertExtensions.Throws<ArgumentNullException>("predicate", () => ReadOnlyList.Range(0, 3).Last(predicate));
 		}
 	}
 }

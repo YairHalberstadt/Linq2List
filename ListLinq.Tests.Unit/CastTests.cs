@@ -416,7 +416,7 @@ namespace ListLinq.Tests.Unit
 		{
 			yield return new object[] { Array.Empty<int>() };
 			yield return new object[] { new int[1] };
-			yield return new object[] { Enumerable.Range(1, 30).ToList() };
+			yield return new object[] { ReadOnlyList.Range(1, 30) };
 		}
 	}
 

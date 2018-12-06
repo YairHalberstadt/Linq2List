@@ -58,7 +58,7 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void SecondNull()
 		{
-			AssertExtensions.Throws<ArgumentNullException>("second", () => Enumerable.Range(0, 0).Concat(null));
+			AssertExtensions.Throws<ArgumentNullException>("second", () => ReadOnlyList.Range(0, 0).Concat(null));
 		}
 
 		[Theory]
@@ -103,22 +103,22 @@ namespace ListLinq.Tests.Unit
 		{
 			yield return new object[]
 			{
-				Enumerable.Range(0, 20).ToList(),
-				Enumerable.Range(0, 4).ToList()
+				ReadOnlyList.Range(0, 20),
+				ReadOnlyList.Range(0, 4)
 					.Concat(
-						Enumerable.Range(4, 6).ToList())
+						ReadOnlyList.Range(4, 6))
 					.Concat(
-						Enumerable.Range(10, 3).ToList()
-							.Concat(Enumerable.Range(13, 7).ToList()))
+						ReadOnlyList.Range(10, 3)
+							.Concat(ReadOnlyList.Range(13, 7)))
 			};
 		}
 
 		public static IEnumerable<object[]> ConcatWithSelfData()
 		{
-			IReadOnlyList<int> source = Enumerable.Repeat(1, 4).ToList().Concat(Enumerable.Repeat(1, 5).ToList());
+			IReadOnlyList<int> source = ReadOnlyList.Repeat(1, 4).Concat(ReadOnlyList.Repeat(1, 5));
 			source = source.Concat(source);
 
-			yield return new object[] {Enumerable.Repeat(1, 18).ToList(), source};
+			yield return new object[] { ReadOnlyList.Repeat(1, 18), source};
 		}
 
 		public static IEnumerable<object[]> ChainedCollectionConcatData() =>
@@ -146,7 +146,7 @@ namespace ListLinq.Tests.Unit
 						k < ListsCount;
 						k++) // k is how much bits we shift by, and also the item that gets appended/prepended.
 					{
-						var nextRange = Enumerable.Range(k, 1).ToList();
+						var nextRange = ReadOnlyList.Range(k, 1);
 						bool prepend = ((i >> k) & 1) != 0;
 
 						actual = prepend ? nextRange.Concat(actual) : actual.Concat(nextRange);
@@ -177,11 +177,11 @@ namespace ListLinq.Tests.Unit
 
 			for (int i = 0; i <= 6; i++)
 			{
-				var expected = Enumerable.Range(0, i * 3).ToList();
+				var expected = ReadOnlyList.Range(0, i * 3);
 				IReadOnlyList<int> actual = Array.Empty<int>();
 				for (int j = 0; j < i; j++)
 				{
-					actual = outerTransform(actual.Concat(innerTransform(Enumerable.Range(j * 3, 3).ToList())));
+					actual = outerTransform(actual.Concat(innerTransform(ReadOnlyList.Range(j * 3, 3))));
 				}
 
 				yield return new object[] {expected, actual};
@@ -223,14 +223,14 @@ namespace ListLinq.Tests.Unit
 
 		public static IEnumerable<object[]> ManyConcatsData()
 		{
-			yield return new object[] {Enumerable.Repeat(Array.Empty<int>(), 256), Array.Empty<int>()};
+			yield return new object[] { ReadOnlyList.Repeat(Array.Empty<int>(), 256), Array.Empty<int>()};
 			yield return new object[]
-				{Enumerable.Repeat(Enumerable.Repeat(6, 1).ToList(), 256), Enumerable.Repeat(6, 256).ToList()};
+				{ReadOnlyList.Repeat(ReadOnlyList.Repeat(6, 1), 256), ReadOnlyList.Repeat(6, 256).ToList()};
 			// Make sure Concat doesn't accidentally swap around the sources, e.g. [3, 4], [1, 2] should not become [1..4]
 			yield return new object[]
 			{
-				Enumerable.Range(0, 500).Select(i => Enumerable.Repeat(i, 1).ToList()).Reverse(),
-				((IReadOnlyList<int>) Enumerable.Range(0, 500).ToList()).Reverse()
+				ReadOnlyList.Range(0, 500).Select(i => ReadOnlyList.Repeat(i, 1)).Reverse(),
+				ReadOnlyList.Range(0, 500).Reverse()
 			};
 		}
 

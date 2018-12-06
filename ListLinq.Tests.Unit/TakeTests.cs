@@ -263,7 +263,7 @@ namespace ListLinq.Tests.Unit
 		[InlineData(10, 100, 90)]
 		public void CountOfLazySkipTakeChain(int skip, int take, int expected)
 		{
-			var partition = Enumerable.Range(1, 100).ToList().Skip(skip).Take(take);
+			var partition = ReadOnlyList.Range(1, 100).Skip(skip).Take(take);
 			Assert.Equal(expected, partition.Count());
 			Assert.Equal(expected, partition.Select(i => i).Count());
 			Assert.Equal(expected, partition.Select(i => i).ToArray().Length);
@@ -318,7 +318,7 @@ namespace ListLinq.Tests.Unit
 		{
 			yield return new object[] { Array.Empty<int>() };
 			yield return new object[] { new int[1] };
-			yield return new object[] { Enumerable.Range(1, 30).ToList() };
+			yield return new object[] { ReadOnlyList.Range(1, 30) };
 		}
 	}
 }

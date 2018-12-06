@@ -50,7 +50,7 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void RepeatIteration()
 		{
-			var q = Enumerable.Range(3, 4).ToList().Append(12);
+			var q = ReadOnlyList.Range(3, 4).Append(12);
 			Assert.Equal(q, q);
 			q = q.Append(14);
 			Assert.Equal(q, q);
@@ -107,7 +107,7 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void AppendCombinations()
 		{
-			var source = Enumerable.Range(0, 3).ToList().Append(3).Append(4);
+			var source = ReadOnlyList.Range(0, 3).Append(3).Append(4);
 			var app0a = source.Append(5);
 			var app0b = source.Append(6);
 			var app1aa = app0a.Append(7);
@@ -126,7 +126,7 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void PrependCombinations()
 		{
-			var source = Enumerable.Range(2, 2).ToList().Prepend(1).Prepend(0);
+			var source = ReadOnlyList.Range(2, 2).Prepend(1).Prepend(0);
 			var pre0a = source.Prepend(5);
 			var pre0b = source.Prepend(6);
 			var pre1aa = pre0a.Prepend(7);
@@ -145,58 +145,58 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void Append1ToArrayToList()
 		{
-			var source = Enumerable.Range(0, 2).ToList().Append(2);
-			Assert.Equal(Enumerable.Range(0, 3), source.ToList());
-			Assert.Equal(Enumerable.Range(0, 3), source.ToArray());
+			var source = ReadOnlyList.Range(0, 2).Append(2);
+			Assert.Equal(ReadOnlyList.Range(0, 3), source.ToList());
+			Assert.Equal(ReadOnlyList.Range(0, 3), source.ToArray());
 		}
 
 		[Fact]
 		public void Prepend1ToArrayToList()
 		{
-			var source = Enumerable.Range(1, 2).ToList().Prepend(0);
-			Assert.Equal(Enumerable.Range(0, 3), source.ToList());
-			Assert.Equal(Enumerable.Range(0, 3), source.ToArray());
+			var source = ReadOnlyList.Range(1, 2).Prepend(0);
+			Assert.Equal(ReadOnlyList.Range(0, 3), source.ToList());
+			Assert.Equal(ReadOnlyList.Range(0, 3), source.ToArray());
 		}
 
 		[Fact]
 		public void AppendNToArrayToList()
 		{
-			var source = Enumerable.Range(0, 2).ToList().Append(2).Append(3);
-			Assert.Equal(Enumerable.Range(0, 4), source.ToList());
-			Assert.Equal(Enumerable.Range(0, 4), source.ToArray());
+			var source = ReadOnlyList.Range(0, 2).Append(2).Append(3);
+			Assert.Equal(ReadOnlyList.Range(0, 4), source.ToList());
+			Assert.Equal(ReadOnlyList.Range(0, 4), source.ToArray());
 		}
 
 		[Fact]
 		public void PrependNToArrayToList()
 		{
-			var source = Enumerable.Range(2, 2).ToList().Prepend(1).Prepend(0);
-			Assert.Equal(Enumerable.Range(0, 4), source.ToList());
-			Assert.Equal(Enumerable.Range(0, 4), source.ToArray());
+			var source = ReadOnlyList.Range(2, 2).Prepend(1).Prepend(0);
+			Assert.Equal(ReadOnlyList.Range(0, 4), source.ToList());
+			Assert.Equal(ReadOnlyList.Range(0, 4), source.ToArray());
 		}
 
 		[Fact]
 		public void AppendPrependToArrayToList()
 		{
-			var source = Enumerable.Range(2, 2).ToList().Prepend(1).Append(4).Prepend(0).Append(5);
-			Assert.Equal(Enumerable.Range(0, 6), source.ToList());
-			Assert.Equal(Enumerable.Range(0, 6), source.ToArray());
+			var source = ReadOnlyList.Range(2, 2).Prepend(1).Append(4).Prepend(0).Append(5);
+			Assert.Equal(ReadOnlyList.Range(0, 6), source.ToList());
+			Assert.Equal(ReadOnlyList.Range(0, 6), source.ToArray());
 
-			source = Enumerable.Range(2, 2).ToList().Append(4).Prepend(1).Append(5).Prepend(0);
-			Assert.Equal(Enumerable.Range(0, 6), source.ToList());
-			Assert.Equal(Enumerable.Range(0, 6), source.ToArray());
+			source = ReadOnlyList.Range(2, 2).Append(4).Prepend(1).Append(5).Prepend(0);
+			Assert.Equal(ReadOnlyList.Range(0, 6), source.ToList());
+			Assert.Equal(ReadOnlyList.Range(0, 6), source.ToArray());
 
-			source = Enumerable.Range(2, 2).ToList().Prepend(1).Prepend(0).Append(4).Append(5);
-			Assert.Equal(Enumerable.Range(0, 6), source.ToList());
-			Assert.Equal(Enumerable.Range(0, 6), source.ToArray());
+			source = ReadOnlyList.Range(2, 2).Prepend(1).Prepend(0).Append(4).Append(5);
+			Assert.Equal(ReadOnlyList.Range(0, 6), source.ToList());
+			Assert.Equal(ReadOnlyList.Range(0, 6), source.ToArray());
 		}
 
 		[Fact]
 		public void AppendPrependRunOnce()
 		{
-			var source = Enumerable.Range(2, 2).ToList().RunOnce().Prepend(1).RunOnce().Prepend(0).RunOnce().Append(4).RunOnce().Append(5).RunOnce();
-			Assert.Equal(Enumerable.Range(0, 6), source.ToList());
-			source = Enumerable.Range(2, 2).ToList().Prepend(1).Prepend(0).Append(4).Append(5).RunOnce();
-			Assert.Equal(Enumerable.Range(0, 6), source.ToList());
+			var source = ReadOnlyList.Range(2, 2).RunOnce().Prepend(1).RunOnce().Prepend(0).RunOnce().Append(4).RunOnce().Append(5).RunOnce();
+			Assert.Equal(ReadOnlyList.Range(0, 6), source.ToList());
+			source = ReadOnlyList.Range(2, 2).Prepend(1).Prepend(0).Append(4).Append(5).RunOnce();
+			Assert.Equal(ReadOnlyList.Range(0, 6), source.ToList());
 		}
 
 		[Fact]
@@ -208,7 +208,7 @@ namespace ListLinq.Tests.Unit
 				source = source.Prepend(i).Append(j);
 			}
 
-			Assert.Equal(source, Enumerable.Range(0, 200001));
+			Assert.Equal(source, ReadOnlyList.Range(0, 200001));
 		}
 
 		[Fact]
@@ -223,7 +223,7 @@ namespace ListLinq.Tests.Unit
 				source =source.Append(j);
 			}
 
-			Assert.Equal(source, Enumerable.Range(0, 200001));
+			Assert.Equal(source, ReadOnlyList.Range(0, 200001));
 		}
 
 		[Theory]
@@ -257,7 +257,7 @@ namespace ListLinq.Tests.Unit
 		{
 			yield return new object[] { Array.Empty<int>() };
 			yield return new object[] { new int[1] };
-			yield return new object[] { Enumerable.Range(1, 30).ToList() };
+			yield return new object[] { ReadOnlyList.Range(1, 30) };
 		}
 	}
 }

@@ -70,13 +70,13 @@ namespace ListLinq.Tests.Unit
         [Fact]
         public void EmptyWithIndexedSelector()
         {
-            Assert.Equal(Enumerable.Empty<int>(), Enumerable.Empty<string>().Select((s, i) => s.Length + i));
+            Assert.Equal(ReadOnlyList.Empty<int>(), ReadOnlyList.Empty<string>().Select((s, i) => s.Length + i));
         }
 
         [Fact]
         public void EnumerateFromDifferentThread()
         {
-            var selected = Enumerable.Range(0, 100).Where(i => i > 3).ToList().Select(i => i.ToString());
+            var selected = ReadOnlyList.Range(0, 100).Where(i => i > 3).Select(i => i.ToString());
             Task[] tasks = new Task[4];
             for (int i = 0; i != 4; ++i)
                 tasks[i] = Task.Run(() => selected.ToList());
@@ -148,7 +148,7 @@ namespace ListLinq.Tests.Unit
         [Fact]
         public void Select_SelectorIsNull_ArgumentNullExceptionThrown_Indexed()
         {
-            IReadOnlyList<int> source = Enumerable.Range(1, 10).ToList();
+            IReadOnlyList<int> source = ReadOnlyList.Range(1, 10);
             Func<int, int, int> selector = null;
 
             AssertExtensions.Throws<ArgumentNullException>("selector", () => source.Select(selector));
@@ -166,7 +166,7 @@ namespace ListLinq.Tests.Unit
         [Fact]
         public void Select_SelectorIsNull_ArgumentNullExceptionThrown()
         {
-            var source = Enumerable.Range(1, 10).ToList();
+            var source = ReadOnlyList.Range(1, 10);
             Func<int, int> selector = null;
 
             AssertExtensions.Throws<ArgumentNullException>("selector", () => source.Select(selector));
@@ -1031,7 +1031,7 @@ namespace ListLinq.Tests.Unit
         {
             yield return new object[] { Array.Empty<int>() };
             yield return new object[] { new int[1] };
-            yield return new object[] { Enumerable.Range(1, 30).ToList() };
+            yield return new object[] { ReadOnlyList.Range(1, 30) };
         }
 
         [Theory]
@@ -1082,7 +1082,7 @@ namespace ListLinq.Tests.Unit
 
             for (int i = 0; i <= 5; i++)
             {
-                var enumerable = Enumerable.Range(1, i).ToList().Select(_ => r.Next());
+                var enumerable = ReadOnlyList.Range(1, i).Select(_ => r.Next());
 
                 foreach (var transform in transforms)
                 {
@@ -1103,7 +1103,7 @@ namespace ListLinq.Tests.Unit
 		{
 			yield return new object[] { Array.Empty<int>() };
 			yield return new object[] { new int[1] };
-			yield return new object[] { Enumerable.Range(1, 30).ToList() };
+			yield return new object[] { ReadOnlyList.Range(1, 30) };
 		}
 	}
 }

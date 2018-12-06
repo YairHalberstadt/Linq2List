@@ -17,7 +17,7 @@ namespace ListLinq
 
 			public abstract bool MoveNext();
 
-			public virtual void Dispose()
+			public void Dispose()
 			{
 				current = default;
 				index = -1;
@@ -51,8 +51,9 @@ namespace ListLinq
 
 			int IList<T>.IndexOf(T item)
 			{
+				var comparer = EqualityComparer<T>.Default;
 				for (int i = 0; i < Count; i++)
-					if (this[i].Equals(item))
+					if (comparer.Equals(this[i], item))
 						return i;
 
 				return -1;
@@ -80,8 +81,9 @@ namespace ListLinq
 
 			bool ICollection<T>.Contains(T item)
 			{
+				var comparer = EqualityComparer<T>.Default;
 				for (int i = 0; i < Count; i++)
-					if (this[i].Equals(item))
+					if (comparer.Equals(this[i], item))
 						return true;
 
 				return false;

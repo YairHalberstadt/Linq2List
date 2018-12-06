@@ -29,9 +29,9 @@ namespace ListLinq.Tests.Unit
 
 		public static IEnumerable<object[]> TestData()
 		{
-			yield return new object[] { Enumerable.Range(9, 1).ToList(), 0, 9 };
-			yield return new object[] { Enumerable.Range(9, 10).ToList(), 9, 18 };
-			yield return new object[] { Enumerable.Range(-4, 10).ToList(), 3, -1 };
+			yield return new object[] { ReadOnlyList.Range(9, 1), 0, 9 };
+			yield return new object[] { ReadOnlyList.Range(9, 10), 9, 18 };
+			yield return new object[] { ReadOnlyList.Range(-4, 10), 3, -1 };
 
 			yield return new object[] { new int[] { -4 }, 0, -4 };
 			yield return new object[] { new int[] { 9, 8, 0, -5, 10 }, 4, 10 };
@@ -68,9 +68,9 @@ namespace ListLinq.Tests.Unit
 			AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => new int[] { 1, 2, 3, 4 }.ElementAt(4));
 			AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => new int[0].ElementAt(0));
 
-			AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => Enumerable.Range(-4, 5).ToList().ElementAt(-1));
-			AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => Enumerable.Range(5, 5).ToList().ElementAt(5));
-			AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => Enumerable.Range(0, 0).ToList().ElementAt(0));
+			AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => ReadOnlyList.Range(-4, 5).ElementAt(-1));
+			AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => ReadOnlyList.Range(5, 5).ElementAt(5));
+			AssertExtensions.Throws<ArgumentOutOfRangeException>("index", () => ReadOnlyList.Range(0, 0).ElementAt(0));
 
 		}
 

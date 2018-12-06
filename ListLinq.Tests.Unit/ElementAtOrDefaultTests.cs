@@ -29,18 +29,18 @@ namespace ListLinq.Tests.Unit
 
 		public static IEnumerable<object[]> TestData()
 		{
-			yield return new object[] { Enumerable.Range(9, 1).ToList(), 0, 9 };
-			yield return new object[] { Enumerable.Range(9, 10).ToList(), 9, 18 };
-			yield return new object[] { Enumerable.Range(-4, 10).ToList(), 3, -1 };
+			yield return new object[] { ReadOnlyList.Range(9, 1), 0, 9 };
+			yield return new object[] { ReadOnlyList.Range(9, 10), 9, 18 };
+			yield return new object[] { ReadOnlyList.Range(-4, 10), 3, -1 };
 
 			yield return new object[] { new int[] { 1, 2, 3, 4 }, 4, 0 };
 			yield return new object[] { new int[0], 0, 0 };
 			yield return new object[] { new int[] { -4 }, 0, -4 };
 			yield return new object[] { new int[] { 9, 8, 0, -5, 10 }, 4, 10 };
 
-			yield return new object[] { Enumerable.Range(-4, 5).ToList(), -1, 0 };
-			yield return new object[] { Enumerable.Range(5, 5).ToList(), 5, 0 };
-			yield return new object[] { Enumerable.Range(0, 0).ToList(), 0, 0 };
+			yield return new object[] { ReadOnlyList.Range(-4, 5), -1, 0 };
+			yield return new object[] { ReadOnlyList.Range(5, 5), 5, 0 };
+			yield return new object[] { ReadOnlyList.Range(0, 0), 0, 0 };
 		}
 
 		[Theory]

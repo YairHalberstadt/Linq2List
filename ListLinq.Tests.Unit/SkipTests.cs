@@ -14,31 +14,31 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void SkipSomeIList()
 		{
-			Assert.Equal(Enumerable.Range(10, 10), Enumerable.Range(0, 20).ToList().Skip(10));
+			Assert.Equal(ReadOnlyList.Range(10, 10), ReadOnlyList.Range(0, 20).Skip(10));
 		}
 
 		[Fact]
 		public void RunOnce()
 		{
-			Assert.Equal(Enumerable.Range(10, 10), Enumerable.Range(0, 20).ToList().RunOnce().Skip(10));
+			Assert.Equal(ReadOnlyList.Range(10, 10), ReadOnlyList.Range(0, 20).RunOnce().Skip(10));
 		}
 
 		[Fact]
 		public void SkipNoneIList()
 		{
-			Assert.Equal(Enumerable.Range(0, 20), Enumerable.Range(0, 20).ToList().Skip(0));
+			Assert.Equal(ReadOnlyList.Range(0, 20), ReadOnlyList.Range(0, 20).Skip(0));
 		}
 
 		[Fact]
 		public void SkipExcessiveIList()
 		{
-			Assert.Equal(Enumerable.Empty<int>(), Enumerable.Range(0, 20).ToList().Skip(42));
+			Assert.Equal(ReadOnlyList.Empty<int>(), ReadOnlyList.Range(0, 20).Skip(42));
 		}
 
 		[Fact]
 		public void SkipAllExactlyIList()
 		{
-			Assert.False(Enumerable.Range(0, 20).Skip(20).ToList().Any());
+			Assert.False(ReadOnlyList.Range(0, 20).Skip(20).Any());
 		}
 
 		[Fact]
@@ -50,15 +50,15 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void SkipOnEmptyIList()
 		{
-			Assert.Equal(Enumerable.Empty<int>(), Array.Empty<int>().Skip(0));
-			Assert.Equal(Enumerable.Empty<string>(), Array.Empty<string>().Skip(-1));
-			Assert.Equal(Enumerable.Empty<double>(), Array.Empty<double>().Skip(1));
+			Assert.Equal(ReadOnlyList.Empty<int>(), Array.Empty<int>().Skip(0));
+			Assert.Equal(ReadOnlyList.Empty<string>(), Array.Empty<string>().Skip(-1));
+			Assert.Equal(ReadOnlyList.Empty<double>(), Array.Empty<double>().Skip(1));
 		}
 
 		[Fact]
 		public void SkipNegativeIList()
 		{
-			Assert.Equal(Enumerable.Range(0, 20), Enumerable.Range(0, 20).ToList().Skip(-42));
+			Assert.Equal(ReadOnlyList.Range(0, 20), ReadOnlyList.Range(0, 20).Skip(-42));
 		}
 
 		[Fact]
@@ -238,7 +238,7 @@ namespace ListLinq.Tests.Unit
 		[Fact]
 		public void LazySkipMoreThan32Bits()
 		{
-			var range = Enumerable.Range(1, 100).ToList();
+			var range = ReadOnlyList.Range(1, 100);
 			var skipped = range.Skip(50).Skip(int.MaxValue); // Could cause an integer overflow.
 			Assert.Empty(skipped);
 			Assert.Equal(0, skipped.Count);
@@ -262,7 +262,7 @@ namespace ListLinq.Tests.Unit
 		{
 			yield return new object[] { Array.Empty<int>() };
 			yield return new object[] { new int[1] };
-			yield return new object[] { Enumerable.Range(1, 30).ToList() };
+			yield return new object[] { ReadOnlyList.Range(1, 30)};
 		}
 	}
 }
