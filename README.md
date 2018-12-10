@@ -1,4 +1,10 @@
-# ListLinq
+# Linq2List
+
+### Nuget
+
+`Install-Package Linq2List -Version 1.0.0`
+
+https://www.nuget.org/packages/Linq2List/1.0.0
 
 ### Aims
 
