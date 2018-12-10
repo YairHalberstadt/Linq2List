@@ -10,14 +10,14 @@
     <Copyright>MIT</Copyright>
     <PackageLicenseUrl>https://github.com/YairHalberstadt/ListLinq/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/YairHalberstadt/ListLinq/tree/master/ListLinq</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/YairHalberstadt/ListLinq/blob/master/icon.ico</PackageIconUrl>
+    <PackageIconUrl>https://github.com/YairHalberstadt/ListLinq/blob/master/ListLinq/icon.ico</PackageIconUrl>
     <RepositoryUrl>https://github.com/YairHalberstadt/ListLinq</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Linq</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="InvalidStateException" Version="0.0.1" />
+    <PackageReference Include="InvalidStateException" Version="0.0.2" />
   </ItemGroup>
 
 </Project>
