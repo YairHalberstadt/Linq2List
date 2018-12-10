@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
-namespace ListLinq
+namespace Linq2List
 {
 	public static partial class ReadOnlyList
 	{

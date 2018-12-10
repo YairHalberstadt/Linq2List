@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace ListLinq.Tests.Unit
+namespace Linq2List.Tests.Unit
 {
 	public class ReverseTests : ListLinqTests
 	{

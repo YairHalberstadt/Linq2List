@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ListLinq.Tests.Unit
+namespace Linq2List.Tests.Unit
 {
     public abstract class ListLinqTests
     {

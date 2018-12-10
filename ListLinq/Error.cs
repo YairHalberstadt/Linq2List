@@ -1,7 +1,7 @@
 ﻿using System;
 using YLib;
 
-namespace ListLinq
+namespace Linq2List
 {
     internal static class Error
 	{

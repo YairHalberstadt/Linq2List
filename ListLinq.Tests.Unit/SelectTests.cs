@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ListLinq.Tests.Unit
+namespace Linq2List.Tests.Unit
 {
     public class SelectTests : ListLinqTests
     {
@@ -217,7 +217,7 @@ namespace ListLinq.Tests.Unit
             bool funcCalled = false;
             var source = ImmutableArray.CreateRange(new List<Func<int>>() { () => { funcCalled = true; return 1; } });
 
-            IEnumerable<int> query = source.Select(d => d());
+            IEnumerable<int> query = ReadOnlyList.Select(source, d => d());
             Assert.False(funcCalled);
         }
 
@@ -267,7 +267,7 @@ namespace ListLinq.Tests.Unit
             bool funcCalled = false;
             var source = ImmutableArray.CreateRange(new List<Func<int>>() { () => { funcCalled = true; return 1; } });
 
-            IEnumerable<int> query = source.Select(d => d).Select(d => d());
+            IEnumerable<int> query = ReadOnlyList.Select(source, d => d).Select(d => d());
             Assert.False(funcCalled);
         }
 
@@ -376,7 +376,7 @@ namespace ListLinq.Tests.Unit
             var source = ImmutableArray.CreateRange(new List<int> { 1, 2, 3, 4, 5 });
             Func<int, int> selector = i => i + 1;
 
-            var query = source.Select(selector);
+            var query = ReadOnlyList.Select(source, selector);
 
             int index = 0;
             foreach (var item in query)
@@ -456,7 +456,7 @@ namespace ListLinq.Tests.Unit
             var source = ImmutableArray.CreateRange(new List<int>() { 1 });
             Func<int, int> selector = i => i + 1;
 
-            IEnumerable<int> query = source.Select(selector);
+            IEnumerable<int> query = ReadOnlyList.Select(source, selector);
 
             var enumerator = query.GetEnumerator();
             while (enumerator.MoveNext()) ;
@@ -570,7 +570,7 @@ namespace ListLinq.Tests.Unit
             var source = ImmutableArray.CreateRange(new List<int> { 1, 2, 3, 4, 5 });
             Func<int, int> selector = i => i + 1;
 
-            var query = source.Select(selector).Select(selector);
+            var query = ReadOnlyList.Select(source, selector).Select(selector);
 
             int index = 0;
             foreach (var item in query)

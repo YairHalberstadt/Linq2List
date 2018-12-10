@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="InvalidStateException" Version="0.0.2" />
+    <PackageReference Include="InvalidStateException" Version="0.0.3" />
   </ItemGroup>
 
 </Project>

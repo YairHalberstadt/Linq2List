@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListLinq", "ListLinq\ListLinq.csproj", "{0AE8061A-FE0D-4AA3-9AE4-BBB7FB4F47BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq2List", "ListLinq\Linq2List.csproj", "{0AE8061A-FE0D-4AA3-9AE4-BBB7FB4F47BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ListLinq.Tests.Unit", "ListLinq.Tests.Unit\ListLinq.Tests.Unit.csproj", "{73D99A30-59C5-446D-8EF4-717D441A389A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq2List.Tests.Unit", "ListLinq.Tests.Unit\Linq2List.Tests.Unit.csproj", "{73D99A30-59C5-446D-8EF4-717D441A389A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

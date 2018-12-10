@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace ListLinq
+namespace Linq2List
 {
     public static partial class ReadOnlyList
     {

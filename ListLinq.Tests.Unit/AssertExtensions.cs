@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Sdk;
 
-namespace ListLinq.Tests.Unit
+namespace Linq2List.Tests.Unit
 {
     public static class AssertExtensions
     {
