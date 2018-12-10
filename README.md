@@ -22,7 +22,7 @@ The extension methods try to mimic Linq as close as possible. As such they are l
 
 One point to bear in mind, is that rather than throwing an exception, modifying a collection whilst an enumerator is running is undefined behaviour. Various optimizations can thus be made under the assumption that this wont happen, but there will not necessarily be any warning if it does.
 
-The ListLinq extension methods use for loop enumeration rather than foreach enumeration internally. As such, there may be some classes for which they are slower than Linq. For example, indexing an ImmutableList is O(log n) time, so for enumarating it is O(n log n) whereas foreach enumeration is O(n). In general, if getting by index is slower than a call to MoveNext and Current, ListLinq will likely be slower than Linq.
+The Linq2List extension methods use for loop enumeration rather than foreach enumeration internally. As such, there may be some classes for which they are slower than Linq. For example, indexing an ImmutableList is O(log n) time, so for enumarating it is O(n log n) whereas foreach enumeration is O(n). In general, if getting by index is slower than a call to MoveNext and Current, ListLinq will likely be slower than Linq.
 
 Where the extension methods provided return a collection, the collection will always be an IReadOnlyList. As such indexing into these results, or getting their count is usually a constant time operation. In certain rare cases it may be slightly slower, but still significantly faster than Enumerable.ElementAt or Enumerable.Count.
 
