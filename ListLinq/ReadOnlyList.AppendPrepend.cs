@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace ListLinq
 {
@@ -45,8 +43,8 @@ namespace ListLinq
 		{
 			//These are internal in order to give AppendPrependNIterator access to them
 			internal readonly IReadOnlyList<TSource> _source;
-			internal TSource _item;
-			internal bool _isAppended;
+			internal readonly TSource _item;
+			internal readonly bool _isAppended;
 
 			public AppendPrepend1Iterator(IReadOnlyList<TSource> source, TSource item, bool append)
 			{

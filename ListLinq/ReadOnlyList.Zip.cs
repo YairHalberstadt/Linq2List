@@ -33,9 +33,9 @@ namespace ListLinq
 
             public ZipIterator(IReadOnlyList<TFirst> first, IReadOnlyList<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
             {
-                this._first = first;
-                this._second = second;
-                this._resultSelector = resultSelector;
+                _first = first;
+                _second = second;
+                _resultSelector = resultSelector;
             }
 
             public sealed override TResult this[int index] => _resultSelector(_first[index], _second[index]);
@@ -85,8 +85,8 @@ namespace ListLinq
 
 			public ZipIterator(IReadOnlyList<TFirst> first, IReadOnlyList<TSecond> second)
 			{
-				this._first = first;
-				this._second = second;
+				_first = first;
+				_second = second;
 			}
 
 			public sealed override (TFirst, TSecond) this[int index] => (_first[index], _second[index]);

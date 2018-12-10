@@ -3,6 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Yair Halberstadt</Authors>
+    <Company>YLib</Company>
+    <Description>A Linq provider for IReadOnlyList</Description>
+    <Copyright>MIT</Copyright>
+    <PackageLicenseUrl>https://github.com/YairHalberstadt/ListLinq/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/YairHalberstadt/ListLinq/tree/master/ListLinq</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/YairHalberstadt/ListLinq/blob/master/icon.ico</PackageIconUrl>
+    <RepositoryUrl>https://github.com/YairHalberstadt/ListLinq</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>Linq</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

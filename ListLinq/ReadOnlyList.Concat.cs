@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace ListLinq
 {
@@ -63,7 +62,7 @@ namespace ListLinq
 				}
 			}
 
-			public ConcatIterator(IReadOnlyList<TSource>[] sources)
+			private ConcatIterator(IReadOnlyList<TSource>[] sources)
 			{
 				_sources = sources;
 			}
@@ -108,27 +107,27 @@ namespace ListLinq
 				return new ConcatIterator<TSource>(_sources);
 			}
 
-			private int currentSourceIndex;
+			private int _currentSourceIndex;
 			public sealed override bool MoveNext()
 			{
-				if(currentSourceIndex >= _sources.Length)
+				if(_currentSourceIndex >= _sources.Length)
 				{
 					current = default;
 					return false;
 				}
 
 				if (_count == -1)
-					_count = _sources[currentSourceIndex].Count;
+					_count = _sources[_currentSourceIndex].Count;
 
 				if (++index >= _count)
 				{
-					currentSourceIndex++;
+					_currentSourceIndex++;
 					_count = -1;
 					index = -1;
 					return MoveNext();
 				}
 
-				current = _sources[currentSourceIndex][index];
+				current = _sources[_currentSourceIndex][index];
 				return true;
 			}
 		}

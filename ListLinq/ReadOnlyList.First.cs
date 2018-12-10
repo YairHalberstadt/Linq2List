@@ -61,7 +61,9 @@ namespace ListLinq
 				throw new ArgumentNullException(nameof(predicate));
 			}
 
-			for (int i = 0; i < source.Count; i++)
+			var count = source.Count;
+			// ReSharper disable once ForCanBeConvertedToForeach
+			for (int i = 0; i < count; i++)
 			{
 				TSource element = source[i];
 				if (predicate(element))
