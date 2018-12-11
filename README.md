@@ -79,3 +79,91 @@ SingleOrDefault
 Any
 
 SelectMany (would not be only O(1) indexing)
+
+### Examples
+
+Linq2List can be used pretty much exactly the way you would use Linq. However, an IReadOnlyList is returned instead of IEnumerable, allowing you to index into the returned value in constant time, and to get the Count in constant time. Here is a (meaningless) example program which calls almost every avalable method in Linq2List:
+
+```csharp
+using System;
+using Linq2List;
+
+namespace Linq2ListExample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var numbers = ReadOnlyList.Range(0, 50);
+
+            var threes = ReadOnlyList.Repeat<int?>(3, 10);
+
+            Console.WriteLine(numbers[3] == threes[8]);
+
+            var nonNullThrees = threes.Cast<int?, int>();
+
+            var joint = numbers.Concat(nonNullThrees);
+
+            var appended = joint.Append(joint[54]);
+
+            var prepended = appended.Prepend(joint.Last()).Prepend(joint.LastOrDefault()).Prepend(joint.First())
+                .Prepend(joint.FirstOrDefault());
+
+            var reversed = prepended.Reverse();
+
+            Console.WriteLine(reversed.ElementAtOrDefault(100) == default(int));
+
+            var zipped = reversed.Zip(reversed.Skip(8).Take(10), (a, b) => Math.Max(a, b));
+
+            var squared = zipped.Select(x => x * x);
+
+            var joint2 = squared.Concat(ReadOnlyList.Empty<int>());
+
+            foreach (var element in joint2)
+            {
+                Console.WriteLine(element);
+            }
+
+            for (int i = 0; i < joint2.Count; i++)
+            {
+                Console.WriteLine(joint2[i] == joint2.ElementAt(i));
+            }
+        }
+    }
+}
+```
+
+This would print:
+
+```
+True
+True
+9
+9
+9
+2401
+2304
+2209
+2116
+2025
+1936
+1849
+True
+True
+True
+True
+True
+True
+True
+True
+True
+True
+```
+
+### Contributing
+
+Please feel free to file bug issues, add tests, add benchmarks, and improve the icon artwork, and the chances are I will accept your PR.
+
+If you want to change any of the code in the Linq2List project though, I suggest you open an issue first to discuss what you want to do, as it is mostly in a completed state.
+
+If anyone has the time to implement a MoreLinq2List project which would provide an IReadOnlyList target for a selection of the MoreLinq methods, that would be great!
